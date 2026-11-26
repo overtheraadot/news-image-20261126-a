@@ -105,8 +105,8 @@ DOTS = [
 
 REGION_LABELS = [
     (-125, 62, "NORTH AMERICA"), (-62, -18, "SOUTH AMERICA"),
-    (12, 62, "EUROPE"), (17, 8, "AFRICA"), (45, 40, "MIDDLE EAST"),
-    (80, 40, "SOUTH ASIA"), (115, 52, "EAST ASIA"), (108, -12, "S.E. ASIA"),
+    (12, 68, "EUROPE"), (17, 8, "AFRICA"), (42, 46, "MIDEAST"),
+    (88, 46, "S. ASIA"), (115, 52, "EAST ASIA"), (108, -12, "S.E. ASIA"),
     (135, -38, "OCEANIA"),
 ]
 
@@ -161,7 +161,10 @@ def main():
     for lon, lat, label in REGION_LABELS:
         x, y = project(lon, lat, mx0, my0, mx1, my1)
         tw = d.textlength(label, font=f_map)
-        d.text((x - tw / 2, y - 7), label, font=f_map, fill=NAVY)
+        lx, ly = x - tw / 2, y - 7
+        for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            d.text((lx + dx, ly + dy), label, font=f_map, fill=(255, 255, 255))
+        d.text((lx, ly), label, font=f_map, fill=NAVY)
 
     # --- story grid: 4 columns x 10 rows ---
     f_tag2 = ImageFont.truetype(FONTB, 10)
